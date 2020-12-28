@@ -1,0 +1,59 @@
+<div class="wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card class="box">
+
+    <form class="example-form" (ngSubmit)="submit()">
+      <p>
+        <mat-form-field class="example-full-width">
+          <mat-label>Адрес места отправления</mat-label>
+          <input matInput placeholder="Нижний Новгород, пл. Горького, 2"
+                 (focusout)="setDeparturePoint($event)"
+                 [disabled]="activeDriver"
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Адрес места прибытия</mat-label>
+          <input matInput placeholder="Нижний Новгород, Проспект Гагарина 23/4"
+                 (focusout)="setArrivalPoint($event)"
+                 [disabled]="activeDriver"
+          >
+        </mat-form-field>
+      </p>
+
+<!--      <p>-->
+<!--        <mat-form-field class="example-full-width">-->
+<!--          <mat-label>Комментарий</mat-label>-->
+<!--          <textarea matInput placeholder="Введите текст"></textarea>-->
+<!--        </mat-form-field>-->
+<!--      </p>-->
+
+      <ng-container *ngIf="cost">
+        <mat-card-title class="cost">Стоимость - {{ cost }}p</mat-card-title>
+      </ng-container>
+
+
+
+      <button mat-stroked-button
+              class="btn-block" type="submit"
+              *ngIf="!auth.activeDriverID"
+      > {{ submitText }}</button>
+
+    </form>
+    <button mat-stroked-button
+            class="btn-block _cancel"
+            *ngIf="auth.activeDriverID"
+            (click)="cancelOrder()">Отменить заказ</button>
+  </mat-card>
+
+  <mat-card *ngIf="activeDriver" class="active-driver">
+    <mat-card-title class="active-driver_key">{{ activeDriver.name }}</mat-card-title>
+    <mat-card-subtitle>Имя </mat-card-subtitle>
+
+    <mat-card-title class="active-driver_key">{{ activeDriver.car}}</mat-card-title>
+    <mat-card-subtitle>Авто</mat-card-subtitle>
+
+    <mat-card-title class="active-driver_key">{{ activeDriver.phone}}</mat-card-title>
+    <mat-card-subtitle>Телефон</mat-card-subtitle>
+  </mat-card>
+
+</div>

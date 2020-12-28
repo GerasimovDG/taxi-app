@@ -1,0 +1,26 @@
+<div class="bg"></div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card class="box">
+    <mat-card-header class="box-header">
+      <mat-card-title>Вход Администратора</mat-card-title>
+    </mat-card-header>
+    <mat-card-header class="box-header _error" *ngIf="isErrorLogin">
+      <mat-card-title>Неверный логин или пароль</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Пароль" formControlName="password" type="password">
+        </mat-form-field>
+      </mat-card-content>
+      <button mat-stroked-button color="accent" class="btn-block" type="submit" [disabled]="disableBtn">Войти</button>
+    </form>
+  </mat-card>
+
+</div>

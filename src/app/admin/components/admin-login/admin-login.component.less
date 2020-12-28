@@ -1,0 +1,23 @@
+.bg {
+  position: fixed;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  background: no-repeat center/cover rgba(255,255,255,0.5) url("src/app/shared/images/taxi-background.jpg");
+  -webkit-backdrop-filter: blur(1000px);
+  backdrop-filter: blur(1000px);
+  filter: blur(2px);
+  background: #3a414e;
+}
+
+.login-wrapper {
+  height: 100%;
+}
+
+.box {
+  &-header {
+    &._error {
+      background: #fc5800;
+    }
+  }
+}

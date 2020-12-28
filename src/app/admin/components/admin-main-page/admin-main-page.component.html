@@ -1,0 +1,156 @@
+<mat-toolbar class="app-header">
+  <div><a routerLink="/admin" target="_blank" class="logo">Администратор</a></div>
+
+  <div class="nav-tool-items">
+    <button mat-button mat-stroked-button (click)="toggleDriversList()">Список водителей</button>
+    <button mat-button mat-stroked-button (click)="toggleCustomers()">Список пользователей</button>
+    <button mat-button mat-stroked-button routerLinkActive="active" (click)="toggleHistory()">История поездок</button>
+  </div>
+
+  <button
+    mat-button
+    aria-label="Example icon-button with share icon"
+    tabindex="0"
+    (click)="isOpenDropdown = !isOpenDropdown"
+    (focusout)="isOpenDropdown = false"
+  >
+    <span>{{ user?.name }} </span>
+    <mat-icon>account_circle</mat-icon>
+    <div class="dropdown" *ngIf="isOpenDropdown">
+      <ul class="dropdown-navigation">
+        <li class="dropdown-navigation__item" (click)="logout($event)">Выход</li>
+      </ul>
+    </div>
+  </button>
+
+</mat-toolbar>
+
+
+<div class="container">
+<!--  ************** DRIVERS **************-->
+  <div class="list _scroll _with-right-buttons" *ngIf="isDriversListDisplayed">
+    <div class="list-header"> Список водителей </div>
+    <div class="list-item"
+         *ngFor="let driver of drivers "
+         [ngClass]="{'_not-modered': !driver.modered}"
+    >
+      <div class="list-item__content">
+        <div class="_key">Имя: </div>
+        <div class="_value">{{ driver.name}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> Email: </div>
+        <div>{{ driver.email}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> Номер телефона:</div>
+        <div> {{ driver.phone}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> Водительское удостоверение:</div>
+        <div>{{ driver.licence}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> Авто: </div>
+        <div> {{ driver.car}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> ID: </div>
+        <div> {{ driver.$key}}</div>
+      </div>
+<!--      <div class="list-item__content">-->
+<!--        <div class="_key"> Modered: </div>-->
+<!--        <div>{{ driver.modered}}</div>-->
+<!--      </div>-->
+
+      <div class="buttons">
+        <button class="buttons-item" mat-raised-button *ngIf="!driver.modered" (click)="confirmDriver(driver)"> Активировать</button>
+        <button class="buttons-item _block" mat-raised-button *ngIf="driver.modered" (click)="blockDriver(driver)"> Заблокировать</button>
+<!--        <button class="buttons-item _delete" mat-raised-button (click)="deleteDriver(driver)"> Удалить</button>-->
+      </div>
+    </div>
+  </div>
+
+<!--  *********** CUSTOMERS **********-->
+  <div class="list" *ngIf="isCustomersListDisplayed">
+    <div class="list-header"> Список пользователей </div>
+    <div class="list-item" *ngFor="let customer of customers">
+      <div class="list-item__content">
+        <div class="_key"> Email:</div>
+        <div> {{ customer.email}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> Имя:</div>
+        <div> {{ customer.name}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> Телефон:</div>
+        <div> +7 {{ customer.phone}}</div>
+      </div>
+      <div class="list-item__content">
+        <div class="_key"> ID: </div>
+        <div> {{ customer.$key}}</div>
+      </div>
+    </div>
+  </div>
+
+
+<!--  ********** HISTORY **********-->
+  <div class="container-with-map" [ngClass]="{_displayed: isHistoryDisplayed}">
+    <div class="list _scroll">
+      <div class="list-header"> История поездок</div>
+      <div class="list-item" *ngFor="let item of history">
+        <div class="list-item__content">
+          <div class="_key"> ID водителя:</div>
+          <div> {{ item.driver }}</div>
+        </div>
+
+        <div class="list-item__content">
+          <div class="_key"> ID пользователя:</div>
+          <div> {{ item.customer }}</div>
+        </div>
+
+        <div class="list-item__content">
+          <div class="_key"> Стоимость поездки:</div>
+          <div> {{ item.cost }} рублей</div>
+        </div>
+
+        <div class="list-item__content">
+          <div class="_key"> Пройденное расстояние:</div>
+          <div> {{ item.distance| number:'1.0-3' }} км.</div>
+        </div>
+
+        <div class="location">
+          <div class="list-item__content">
+            <div class="_key"> Начальная точка:</div>
+            <div class="location">
+              <div> Широта: {{ item.location.from.lat}},</div>
+              <div> Долгота: {{ item.location.from.lng}} </div>
+            </div>
+          </div>
+
+          <div class="list-item__content">
+            <div class="_key"> Конечная точка:</div>
+            <div class="location">
+              <div> Широта: {{ item.location.to.lat}},</div>
+              <div> Долгота: {{ item.location.to.lng}} </div>
+            </div>
+          </div>
+          <button class="list-item__content-button" mat-raised-button (click)="getRoute(item.location)"> Посмотреть
+            маршрут
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="map" class="map"></div>
+  </div>
+</div>
+
+
+<ya-map id="ya-map" class="ya-map" #yaMapComponent
+        [center]="[56.299116, 43.982503]"
+        [zoom]="12"
+        [state]="{ controls: [] }"
+        (ready)="init()"
+>
+</ya-map>

@@ -1,0 +1,281 @@
+@yellow: #fce000;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+  background: #3e4b54;
+}
+
+.app-header {
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.login-wrapper {
+  height: 100%;
+}
+
+.bg {
+  position: fixed;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  background: no-repeat center/cover rgba(255,255,255,0.5) url("src/app/shared/images/taxi-background.jpg");
+  -webkit-backdrop-filter: blur(1000px);
+  backdrop-filter: blur(1000px);
+  filter: blur(2px);
+}
+
+
+.box {
+  position: relative;
+  top: 0;
+  opacity: 1;
+  float: left;
+  padding: 60px 50px 40px 50px;
+  width: 100%;
+  background: #3a414e;
+  border-radius: 10px;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  z-index: 5;
+  max-width: 500px;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    ._error {
+      color: brown;
+      font-size: 20px;
+    }
+  }
+}
+
+::ng-deep.mat-card-header-text {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 0 0 20px 0!important;
+}
+::ng-deep.mat-card-title {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  &._active {
+    color: white;
+  }
+  &:hover {
+    color: rgb(255, 255, 255)
+  }
+}
+
+.box.back {
+  transform: scale(.95);
+  -webkit-transform: scale(.95);
+  -ms-transform: scale(.95);
+  top: -20px;
+  opacity: .8;
+  z-index: -1;
+}
+
+.box:before {
+  content: "";
+  width: 100%;
+  height: 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: -10px;
+  background: rgba(255, 255, 255, .6);
+  left: 0;
+  transform: scale(.95);
+  -webkit-transform: scale(.95);
+  -ms-transform: scale(.95);
+  z-index: -1;
+}
+
+.login-wrapper .example-form {
+  position: relative;
+  display: block;
+  min-width: 100%;
+  max-width: 300px;
+  width: 100%;
+}
+
+.login-wrapper .example-full-width,
+.login-wrapper .btn-block {
+  width: 100%;
+  color: white;
+}
+
+.example-full-width {
+  input {
+    caret-color: aliceblue;
+  }
+}
+
+.login-wrapper mat-card-header {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-weight: 700;
+}
+
+.login-wrapper mat-card-header mat-card-title {
+  font-size: 30px;
+  margin: 0;
+}
+
+.login-wrapper .mat-card {
+  padding: 40px 70px 50px;
+}
+
+.login-wrapper .mat-stroked-button {
+  border: 1px solid currentColor;
+  line-height: 54px;
+  background: rgba(122, 144, 146, 0.2);
+}
+
+.login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 0.8375em 0;
+}
+
+
+.btn-block {
+  background: #3e4b54;
+  color: #fce000;
+  &:not(:first-of-type) {
+    margin-top: 10px;
+  }
+
+  //&._disabled {
+  //  background: rgba(6, 57, 93, 0.6) -140px 0;
+  //  cursor: not-allowed;
+  //}
+}
+
+
+/** Overrides underline color **/
+.my-form-field.mat-form-field-appearance-legacy .mat-form-field-underline,
+.my-form-field.mat-form-field-appearance-legacy .mat-form-field-ripple,
+.my-form-field.mat-form-field-appearance-legacy.mat-focused
+.mat-form-field-underline,
+.my-form-field.mat-form-field-appearance-legacy.mat-focused
+.mat-form-field-ripple {
+  background-color: white!important;
+}
+
+._customer {
+  display: none;
+}
+
+
+
+
+.login-page {
+  width: 100vw;
+  height: 100vh;
+
+  ::ng-deep {
+
+    .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label:not(.mat-empty):not(.mat-form-field-empty) {
+      // color
+      color: #6f9e9f;
+      // scale or font-size
+    }
+
+    .mat-input-element {
+      caret-color: @yellow;
+    }
+
+    .mat-select-value-text {
+      color: white;
+    }
+
+    .mat-form-field.mat-focused.mat-primary .mat-select-arrow,
+    .mat-select-arrow {
+      color: @yellow;
+    }
+
+    .mat-form-field-infix::placeholder {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .mat-form-field-empty.mat-form-field-label {
+      color: #6f9e9f !important;
+    }
+
+    .mat-form-field-underline {
+      color: #c4c4e7 !important;
+      background-color: #c4c4e7 !important;
+    }
+
+    .mat-focused .mat-form-field-underline {
+      color: #027D7C !important;
+      background-color: #c4c4e7 !important;
+    }
+
+
+    /** Overrides underline color **/
+    //.my-form-field.mat-form-field-appearance-legacy .mat-form-field-underline,
+    //.my-form-field.mat-form-field-appearance-legacy .mat-form-field-ripple,
+    //.my-form-field.mat-form-field-appearance-legacy.mat-focused
+    //.mat-form-field-underline,
+    //.my-form-field.mat-form-field-appearance-legacy.mat-focused
+    //.mat-form-field-ripple {
+    //  //background-color: white!important;
+    //}
+
+    .mat-form-field.mat-focused .mat-form-field-ripple {
+      //background-color: #69f0ae !important;
+      background-color: @yellow !important;
+    }
+
+  }
+}
+/*Change text in autofill textbox*/
+input:-webkit-autofill {
+  background-color: rgba(102, 163, 177, 0) !important;
+}
+
+
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+@-webkit-keyframes autofill {
+  0%,100% {
+    color: white;
+    background: white;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0 30px #3a414e inset !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

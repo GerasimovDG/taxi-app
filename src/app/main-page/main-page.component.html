@@ -1,0 +1,89 @@
+<div>
+  <div class="container">
+
+
+    <div class="map-container">
+      <app-order-page class="order"></app-order-page>
+      <div id="map" class="map"></div>
+      <button (click)="onClick($event)"></button>
+      <ya-map id="ya-map" class="ya-map" #yaMapComponent
+              [center]="[56.299116, 43.982503]"
+              [zoom]="12"
+              [state]="{ controls: [] }"
+              (ready)="onMapReady($event)"
+      >
+        <ya-placemark [geometry]="[56.299116, 43.982503]"></ya-placemark>
+<!--        <ya-control class="ya-control _taxi-points"-->
+<!--          type="RoutePanel"-->
+<!--          [parameters]="parameters"-->
+<!--        ></ya-control>-->
+
+        <ya-control #element
+          type="RoutePanel"
+          [parameters]="routePanelParameters"
+          (load)="onRoutePanelLoad($event)"
+        ></ya-control>
+        <ya-control type="ZoomControl" [parameters]="zoomControlParameters"></ya-control>
+
+      </ya-map>
+
+
+<!--      <agm-map-->
+
+<!--        [latitude]="lat"-->
+<!--        [longitude]="lng"-->
+<!--        [(zoom)]="zoom"-->
+<!--        [disableDefaultUI]="false"-->
+<!--        (mapClick)="mapClicked($event)"-->
+<!--        (mapReady)="mapReady($event)"-->
+<!--      >-->
+
+<!--        <agm-marker-->
+<!--          *ngFor="let m of markers; let i = index"-->
+<!--          (markerClick)="clickedMarker(m.label, i)"-->
+<!--          [latitude]="m.lat"-->
+<!--          [longitude]="m.lng"-->
+<!--          [label]="m.label"-->
+<!--          [markerDraggable]="m.draggable"-->
+<!--        >-->
+
+<!--          <agm-info-window>-->
+<!--            <strong>InfoWindow content</strong>-->
+<!--          </agm-info-window>-->
+
+<!--        </agm-marker>-->
+
+<!--        <agm-circle [latitude]="lat + 0.3" [longitude]="lng"-->
+<!--                    [radius]="5000"-->
+<!--                    [fillColor]="'red'"-->
+<!--                    [circleDraggable]="true"-->
+<!--                    [editable]="true">-->
+<!--        </agm-circle>-->
+
+<!--      </agm-map>-->
+
+
+<!--      <form id="distance-form" class="distance-form">-->
+<!--        <div class="form-group">-->
+<!--          <input class="form-control" type="text" id="from_places">-->
+<!--          <input type="text" id="origin" name="origin" type="hidden" required="">-->
+<!--        </div>-->
+<!--      </form>-->
+    </div>
+  </div>
+<!--  <div class="container-fluid">-->
+<!--    <div class="form-group">-->
+<!--      <label for="place">Search Google Place</label>-->
+<!--      <input type="text" id="place" #search-->
+<!--        [formControl]="searchControl"-->
+<!--        autocomplete="off"-->
+<!--        autocapitalize="off"-->
+<!--        spellcheck="off"-->
+<!--      >-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+</div>
+

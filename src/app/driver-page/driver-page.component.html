@@ -1,0 +1,90 @@
+<!--<div class="container">-->
+<!--  <div class="driver-info">-->
+<!--    <div class="driver-info__header">Информация о водителе.</div>-->
+
+<!--    <div class="driver-info__content">-->
+<!--      <div-->
+<!--        class="driver-info__content-item"-->
+<!--      >-->
+<!--        <div class="_key"> Имя:</div>-->
+<!--        <div> {{ driver?.name }}</div>-->
+<!--      </div>-->
+
+<!--      <div-->
+<!--        class="driver-info__content-item"-->
+<!--      >-->
+<!--        <div class="_key"> Email:</div>-->
+<!--        <div> {{ driver?.email }}</div>-->
+<!--      </div>-->
+
+<!--      <div-->
+<!--        class="driver-info__content-item"-->
+<!--      >-->
+<!--        <div class="_key"> Телефон:</div>-->
+<!--        <div> {{ driver?.phone }}</div>-->
+<!--      </div>-->
+
+<!--      <div-->
+<!--        class="driver-info__content-item"-->
+<!--      >-->
+<!--        <div class="_key"> Водительское удостоверение:</div>-->
+<!--        <div> {{ driver?.licence }}</div>-->
+<!--      </div>-->
+
+<!--      <div-->
+<!--        class="driver-info__content-item"-->
+<!--      >-->
+<!--        <div class="_key"> Авто:</div>-->
+<!--        <div> {{ driver?.car }}</div>-->
+<!--      </div>-->
+
+<!--      <div-->
+<!--        class="driver-info__content-item"-->
+<!--        *ngIf="!driver?.modered || false"-->
+<!--      >-->
+<!--        <div> Вы пока еще не прошли модерацию.</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="container">
+  <mat-card class="box">
+    <mat-card-header class="box-header">
+      <mat-card-title>Информация о водителе {{ driver?.name}}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-header class="box-header _warning" *ngIf="driver && !driver?.modered">
+      <mat-card-title>Вы еще не прошли модерацию</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="updateForm" (ngSubmit)="updateDriver()">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Имя" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" formControlName="email" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Телефон" formControlName="phone">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Водительское удостоверение" formControlName="licence">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Авто" formControlName="car">
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-stroked-button class="button _success" type="submit">Сохранить</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

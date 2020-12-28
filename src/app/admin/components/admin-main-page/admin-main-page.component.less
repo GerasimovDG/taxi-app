@@ -1,0 +1,175 @@
+
+.logo {
+  text-decoration: none;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.nav-tool-items {
+  display: flex;
+  & * {
+    //color: white;
+    margin-left: 10px;
+    background: #77839b;
+  }
+}
+
+.mat-button {
+  color:  white;
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 1;
+  padding: .2rem 0 0.5rem;
+  top: 135%;
+  right: 0;
+  background-color: #3a414e;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 3px 3px 6px rgb(33, 33, 33);
+
+  animation: dropdownMove .2s ease-out;
+  @keyframes dropdownMove {
+    from { top: 80%; opacity: 0}
+    to { top: 135%; opacity: 1}
+  }
+
+  &-navigation {
+    list-style-type: none;
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+
+    margin: 0;
+    padding: 0 1rem;
+    &__item {
+      cursor: pointer;
+    }
+  }
+}
+
+.app-header {
+  background: #3a414e;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.container {
+  max-width: 700px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 30px auto 0;
+
+  &-with-map {
+    max-width: 1200px;
+    flex-wrap: nowrap;
+    display: none;
+    position: relative;
+    border: 2px solid #3a414e;
+    border-radius: 10px;
+
+    &._displayed {
+      display: flex;
+    }
+    .list {
+      width: unset;
+    }
+    .list-item__content {
+      width: 100%;
+    }
+  }
+}
+
+.list {
+  margin: 10px;
+  width: 100%;
+  min-width: 500px;
+  min-height: 300px;
+  border: 5px solid #3a414e;
+  border-radius: 10px;
+
+  &._scroll {
+    max-height: 600px;
+    overflow-y: scroll;
+  }
+
+  &._with-right-buttons {
+    width: 100%;
+    .list-item__content {
+      width: 70%;
+    }
+  }
+
+  &-header {
+    font-size: 20px;
+    padding: 10px;
+    color: #3a414e;
+  }
+
+  &-item {
+    position: relative;
+    padding: 10px;
+    margin: 10px;
+    border: 1px dashed #3a414e;
+    border-radius: 10px;
+
+    &._not-modered {
+      background: rgba(205,92,92,0.5);
+    }
+
+    &__content {
+      display: flex;
+      border-bottom: 1px solid rgba(205,92,92,0.5);
+      width: 100%;
+      &-button {
+        display: block;
+        width: 100%;
+        margin: 5px auto;
+        background: #ffe398;
+      }
+
+      ._key {
+        min-width: 200px;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+
+      &-item {
+        min-width: 135px;
+        &:not(:first-of-type) {
+          margin-top: 5px;
+        }
+        &._delete {
+          background: indianred;
+          color: white;
+        }
+        &._block {
+          background: indianred;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+
+.map {
+  height: 600px;
+  width: 600px;
+  margin-top: 15px;
+}
+
+.ya-map {
+  display: none;
+  width: 0;
+}

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "taxiapp-95989": {
+      "hosting": {
+        "taxi-app": [
+          "taxiapp-95989"
+        ]
+      }
+    }
+  }
+}

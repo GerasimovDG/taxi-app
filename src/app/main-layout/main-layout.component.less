@@ -1,0 +1,56 @@
+
+.logo {
+  text-decoration: none;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.nav-tool-items {
+  display: flex;
+  & * {
+    //color: white;
+    margin-left: 10px;
+  }
+}
+
+.mat-button {
+  color:  white;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 1;
+  padding: .2rem 0 0.5rem;
+  top: 135%;
+  right: 0;
+  background-color: #3a414e;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 3px 3px 6px rgb(33, 33, 33);
+
+  animation: dropdownMove .2s ease-out;
+  @keyframes dropdownMove {
+    from { top: 80%; opacity: 0}
+    to { top: 135%; opacity: 1}
+  }
+
+  &-navigation {
+    list-style-type: none;
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+
+    margin: 0;
+    padding: 0 1rem;
+    &__item {
+      cursor: pointer;
+    }
+  }
+}
+
+.app-header {
+  background: #3a414e;
+}

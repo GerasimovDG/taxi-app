@@ -1,0 +1,107 @@
+<div class="login-page">
+<div class="bg"></div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!isOpenRegisterForm; else registerFormTemplate">
+
+  <mat-card class="box">
+    <mat-card-header class="box-header">
+      <mat-card-title
+        [ngClass]="{'_active': !isOpenRegisterForm}"
+        (click)="openLoginForm()"
+      >Вход</mat-card-title>
+      <mat-card-title
+        [ngClass]="{'_active': isOpenRegisterForm}"
+        (click)="openRegistrationForm()"
+      >Регистрация</mat-card-title>
+    </mat-card-header>
+    <mat-card-header class="box-header" *ngIf="isErrorLogin">
+      <mat-card-subtitle class="_error"> Неверный логин или пароль</mat-card-subtitle>
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="loginForm" >
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Пароль" formControlName="password" type="password">
+        </mat-form-field>
+      </mat-card-content>
+      <button mat-stroked-button color="accent" class="btn-block"  (click)="submitLogin()" [disabled]="disableBtn">Войти</button>
+      <button mat-stroked-button class="btn-block"  (click)="loginDriver()" [disabled]="disableBtn">Войти как водитель</button>
+    </form>
+  </mat-card>
+
+</div>
+
+
+<ng-template #registerFormTemplate>
+  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+      <mat-card-header class="box-header">
+        <mat-card-title
+          [ngClass]="{'_active': !isOpenRegisterForm}"
+          (click)="openLoginForm()"
+        >Вход</mat-card-title>
+        <mat-card-title
+          [ngClass]="{'_active': isOpenRegisterForm}"
+          (click)="openRegistrationForm()"
+        >Регистрация</mat-card-title>
+      </mat-card-header>
+
+      <form class="example-form" [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Имя" formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Пароль" formControlName="password" type="password">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>номер</mat-label>
+            <span matPrefix>+7 &nbsp;</span>
+            <input type="tel" matInput placeholder="910-123-1234" formControlName="phone">
+            <mat-icon matSuffix>mode_edit</mat-icon>
+          </mat-form-field>
+
+<!--          <mat-form-field class="example-full-width">-->
+<!--            <mat-label>Выберите роль...</mat-label>-->
+<!--            <mat-select>-->
+<!--              <mat-option (onSelectionChange)="chooseUserType($event)" [value]="role" *ngFor="let role of Roles">{{role}}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Выберите роль...</mat-label>
+            <mat-select [(value)]="selectedRole">
+              <mat-option value="Client">Клиент</mat-option>
+              <mat-option value="Driver">Водитель</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <ng-container *ngIf="selectedRole === 'Driver'">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Номер водительского удостоверения" formControlName="licence">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Модель и номер авто" formControlName="car">
+            </mat-form-field>
+          </ng-container>
+
+        </mat-card-content>
+
+        <button mat-stroked-button class="btn-block" type="submit" [disabled]="disableBtn">Зарегистрироваться</button>
+
+      </form>
+    </mat-card>
+  </div>
+</ng-template>
+</div>

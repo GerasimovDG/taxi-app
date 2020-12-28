@@ -1,0 +1,28 @@
+<!-- Toolbar -->
+<mat-toolbar class="app-header">
+  <div><a routerLink="signin" class="logo">YourNewTaxi</a></div>
+<!--  <div class="nav-tool-items">-->
+<!--    <a mat-button mat-stroked-button routerLink="signin" routerLinkActive="active">Регистрация</a>-->
+<!--    <a mat-button mat-stroked-button routerLink="signin" routerLinkActive="active">Список сотрудников</a>-->
+<!--    <a mat-button mat-stroked-button routerLink="signin" routerLinkActive="active">Список пользователей</a>-->
+<!--  </div>-->
+  <span class="example-spacer"></span>
+  <button
+    mat-button
+    aria-label="Example icon-button with share icon"
+    tabindex="0"
+    (click)="isOpenDropdown = !isOpenDropdown"
+    (focusout)="isOpenDropdown = false"
+  >
+     <span>{{ user?.name }} </span>
+    <mat-icon>account_circle</mat-icon>
+    <div class="dropdown" *ngIf="isOpenDropdown">
+      <ul class="dropdown-navigation">
+        <li class="dropdown-navigation__item" (click)="logout($event)">Выход</li>
+      </ul>
+    </div>
+  </button>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>
