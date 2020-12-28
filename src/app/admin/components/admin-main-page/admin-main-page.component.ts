@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {IUser} from '../../../shared/interfaces/user';
 import {Router} from '@angular/router';
-import {AdminServiceService} from '../../services/admin-service.service';
+import {AdminService} from '../../services/admin.service';
 import {MapsService} from '../../../services/maps.service';
+import {DataHandlerService} from '../../../services/data-handler.service';
 
 @Component({
   selector: 'app-admin-main-page',
@@ -15,29 +16,28 @@ export class AdminMainPageComponent implements OnInit {
   isDriversListDisplayed = true;
   isCustomersListDisplayed = false;
 
-
   isOpenDropdown = false;
   user: IUser;
-  userRef: any;
 
   drivers: any;
   customers: any;
   history: any;
 
-  constructor(private auth: AdminServiceService,
+  constructor(private auth: AdminService,
+              private data: DataHandlerService,
               private router: Router,
               private mapService: MapsService,
               ) { }
 
   ngOnInit(): void {
-    this.auth.user$.subscribe( user => {
-      console.log(user);
-      // this.userRef = this.auth.getUserById(user.id).valueChanges().subscribe( data => {
-      //   console.log(data);
-      // });
-    });
+    // this.auth.user$.subscribe( user => {
+    //   console.log(user);
+    //   // this.userRef = this.auth.getUserById(user.id).valueChanges().subscribe( data => {
+    //   //   console.log(data);
+    //   // });
+    // });
 
-    this.auth.getHistory().valueChanges().subscribe( history => {
+    this.data.getHistory().valueChanges().subscribe( history => {
       console.log(history);
       this.history = history;
     });
@@ -46,7 +46,7 @@ export class AdminMainPageComponent implements OnInit {
     //   console.log(data);
     // });
 
-    this.auth.getAllDrivers().snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+    this.data.getAllDrivers().snapshotChanges().subscribe(data => {
       const users = [];
       data.forEach(item => {
         const a = item.payload.toJSON();
@@ -57,7 +57,7 @@ export class AdminMainPageComponent implements OnInit {
       console.log(users);
     });
 
-    this.auth.getAllCustomers().snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+    this.data.getAllCustomers().snapshotChanges().subscribe(data => {
       const users = [];
       data.forEach(item => {
         const a = item.payload.toJSON();
@@ -72,7 +72,6 @@ export class AdminMainPageComponent implements OnInit {
 
 
   logout(event): void {
-    console.log('logout');
     event.preventDefault();
     this.auth.logout();
     this.router.navigate(['/signin']);
@@ -85,28 +84,27 @@ export class AdminMainPageComponent implements OnInit {
   confirmDriver(driver: any): void {
     console.log(driver);
     const updatedDriver = {...driver, modered: true};
-    this.auth.updateDriver(updatedDriver);
-
+    const driverId = updatedDriver.$key;
+    delete updatedDriver.$key;
+    this.data.updateDriverById(driverId, updatedDriver);
   }
 
   blockDriver(driver: any): void {
     console.log(driver);
     const updatedDriver = {...driver, modered: false};
-    this.auth.updateDriver(updatedDriver);
+    const driverId = updatedDriver.$key;
+    delete updatedDriver.$key;
+    this.data.updateDriverById(driverId, updatedDriver);
   }
 
-  // deleteDriver(driver: any): void {
-  //   this.auth.deleteDriver(driver);
-  //   console.log(driver);
-  // }
   init(): void {
     this.mapService.createMap('map',
       {
         state: {
           center: [56.299116, 43.982503],
           zoom: 12,
-          // controls: ['zoomControl'],
-          behaviors: ['drag'],
+          controls: ['zoomControl'],
+          behaviors: ['drag', 'scrollZoom'],
         }
       });
   }

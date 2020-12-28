@@ -12,18 +12,18 @@
               [state]="{ controls: [] }"
               (ready)="onMapReady($event)"
       >
-        <ya-placemark [geometry]="[56.299116, 43.982503]"></ya-placemark>
-<!--        <ya-control class="ya-control _taxi-points"-->
-<!--          type="RoutePanel"-->
-<!--          [parameters]="parameters"-->
-<!--        ></ya-control>-->
+<!--        <ya-placemark [geometry]="[56.299116, 43.982503]"></ya-placemark>-->
+<!--&lt;!&ndash;        <ya-control class="ya-control _taxi-points"&ndash;&gt;-->
+<!--&lt;!&ndash;          type="RoutePanel"&ndash;&gt;-->
+<!--&lt;!&ndash;          [parameters]="parameters"&ndash;&gt;-->
+<!--&lt;!&ndash;        ></ya-control>&ndash;&gt;-->
 
-        <ya-control #element
-          type="RoutePanel"
-          [parameters]="routePanelParameters"
-          (load)="onRoutePanelLoad($event)"
-        ></ya-control>
-        <ya-control type="ZoomControl" [parameters]="zoomControlParameters"></ya-control>
+<!--        <ya-control #element-->
+<!--          type="RoutePanel"-->
+<!--          [parameters]="routePanelParameters"-->
+<!--          (load)="onRoutePanelLoad($event)"-->
+<!--        ></ya-control>-->
+<!--        <ya-control type="ZoomControl" [parameters]="zoomControlParameters"></ya-control>-->
 
       </ya-map>
 

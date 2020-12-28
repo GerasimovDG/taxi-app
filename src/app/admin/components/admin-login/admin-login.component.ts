@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {IUser} from '../../../shared/interfaces/user';
 import {Router} from '@angular/router';
-import {AdminServiceService} from '../../services/admin-service.service';
+import {AdminService} from '../../services/admin.service';
 import {FbAuthResponse} from '../../../shared/interfaces/common';
 
 @Component({
@@ -16,7 +16,7 @@ export class AdminLoginComponent implements OnInit {
   isErrorLogin = false;
   loginForm: FormGroup;
 
-  constructor(private auth: AdminServiceService,
+  constructor(private auth: AdminService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -29,9 +29,9 @@ export class AdminLoginComponent implements OnInit {
         ])
     });
 
-    this.auth.user$.subscribe( data => {
-      console.log(data);
-    });
+    // this.auth.user$.subscribe( data => {
+    //   console.log(data);
+    // });
 
   }
 

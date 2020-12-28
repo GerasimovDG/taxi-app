@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IUser} from '../shared/interfaces/user';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
+import {DataHandlerService} from '../services/data-handler.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -15,12 +16,13 @@ export class MainLayoutComponent implements OnInit {
   userRef: any;
 
   constructor(private auth: AuthService,
+              private data: DataHandlerService,
               private router: Router) { }
 
   ngOnInit(): void {
     this.auth.user$.subscribe( user => {
       console.log(user);
-      this.userRef = this.auth.getUserById(user.id).valueChanges().subscribe( data => {
+      this.userRef = this.data.getUserById(user.id).valueChanges().subscribe( data => {
         console.log(data);
       });
     });

@@ -35,13 +35,13 @@
 
       <button mat-stroked-button
               class="btn-block" type="submit"
-              *ngIf="!auth.activeDriverID"
+              *ngIf="!data.activeDriverID"
       > {{ submitText }}</button>
 
     </form>
     <button mat-stroked-button
             class="btn-block _cancel"
-            *ngIf="auth.activeDriverID"
+            *ngIf="data.activeDriverID"
             (click)="cancelOrder()">Отменить заказ</button>
   </mat-card>
 

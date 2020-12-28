@@ -24,12 +24,12 @@ import { DriverNearbyComponent } from './shared/components/driver-nearby/driver-
 import {MatDialogModule} from '@angular/material/dialog';
 
 const mapConfig: YaConfig = {
-  apikey: 'YA_API_KEY',
+  apikey: '2ee203b8-7118-4aac-b249-8775b86c3564',
   lang: 'ru_RU',
 };
 
 const firebaseConfig = {
-  apiKey: 'API_KEY',
+  apiKey: 'AIzaSyDsowi-N0_cLWIygqhsOFtgw2EnxL5IPp4',
   authDomain: 'taxiapp-95989.firebaseapp.com',
   databaseURL: 'https://taxiapp-95989-default-rtdb.firebaseio.com',
   projectId: 'taxiapp-95989',
@@ -63,7 +63,7 @@ const firebaseConfig = {
     ReactiveFormsModule,
     AngularYandexMapsModule.forRoot(mapConfig),
     AgmCoreModule.forRoot({
-      apiKey: 'API_KEY',
+      apiKey: 'AIzaSyDsowi-N0_cLWIygqhsOFtgw2EnxL5IPp4',
       libraries: ['places']
     }),
     AngularFireModule.initializeApp(firebaseConfig),

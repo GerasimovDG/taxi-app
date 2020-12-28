@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MapsService} from '../services/maps.service';
-import {CalculatorService} from '../services/calculator.service';
 import {defaultIfEmpty} from 'rxjs/operators';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {calculateTripCost} from '../shared/constants';
+import {DataHandlerService} from '../services/data-handler.service';
 
 @Component({
   selector: 'app-order-page',
@@ -13,20 +14,18 @@ import {AuthService} from '../services/auth.service';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class OrderFormComponent implements OnInit, OnDestroy {
-
-  public cost = 0;
   subscription$: Subscription = new Subscription();
 
-  activeDriver: any;
-
-  submitText = 'Заказать такси';
+  public cost = 0;
+  public submitText = 'Заказать такси';
+  public activeDriver: any;
 
   userId: string;
 
   constructor(
     private mapService: MapsService,
-    public auth: AuthService,
-    private calculatorService: CalculatorService,
+    // public auth: AuthService,
+    public data: DataHandlerService,
     private cdRef: ChangeDetectorRef,
     private route: ActivatedRoute,
   ) { }
@@ -39,7 +38,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     this.subscription$.add(this.mapService.distance$.pipe(defaultIfEmpty()).subscribe(distance => {
       console.log(distance);
       if (distance) {
-        this.cost = this.calculatorService.calculateTripCost(distance);
+        this.cost = calculateTripCost(distance);
       } else {
         this.cost = null;
       }
@@ -48,7 +47,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
       console.log(this.cost);
     }));
 
-    this.auth.activeDriver$.subscribe( data => {
+    this.data.activeDriver$.subscribe( data => {
       this.activeDriver = data;
       if (!data) {
         this.submitText = 'Заказать такси';
@@ -59,7 +58,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 
   submit(): void {
     this.submitText = 'Поиск такси...';
-    // this.mapService.displayUserGeolocation();
+
     const startCoords = this.mapService.getDeparturePointCoords();
     const endCoords = this.mapService.getArrivalPointCoords();
 
@@ -70,7 +69,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
       destinationLng: endCoords[1],
     };
 
-    this.auth.findNearestDriver(customerRequest, startCoords);
+    this.data.findNearestDriver(customerRequest, startCoords);
   }
 
   setDeparturePoint($event): void {
@@ -87,11 +86,11 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
+  cancelOrder(): void {
+    this.data.cancelOrder(this.userId);
   }
 
-  cancelOrder(): void {
-    this.auth.cancelOrder(this.userId);
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

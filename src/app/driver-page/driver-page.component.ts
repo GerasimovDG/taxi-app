@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {AuthService} from '../services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {IUser} from '../shared/interfaces/user';
+import {DataHandlerService} from '../services/data-handler.service';
+import {DriverAuthService} from '../services/driver-auth.service';
 
 @Component({
   selector: 'app-driver-page',
@@ -17,19 +17,20 @@ export class DriverPageComponent implements OnInit {
   updateForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
-              private auth: AuthService
+              private driverAuth: DriverAuthService,
+              private data: DataHandlerService,
               ) { }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params.id;
 
 
-    this.auth.user$.subscribe( data => {
-      console.log(data);
-    });
+    // this.auth.user$.subscribe( data => {
+    //   console.log(data);
+    // });
 
-    if (!this.auth.userRef) {
-      this.auth.getDriverById(this.userId).snapshotChanges().subscribe(data => {
+    if (!this.driverAuth.userRef) {
+      this.data.getDriverById(this.userId).snapshotChanges().subscribe(data => {
         this.driver = data.payload.toJSON();
         this.driver['$key'] = data.key;
         console.log(this.driver);
@@ -42,7 +43,7 @@ export class DriverPageComponent implements OnInit {
       });
     } else {
 
-      this.auth.userRef.snapshotChanges().subscribe(data => {
+      this.driverAuth.userRef.snapshotChanges().subscribe(data => {
         this.driver = data.payload.toJSON();
         this.driver['$key'] = data.key;
         console.log(this.driver);
@@ -55,16 +56,7 @@ export class DriverPageComponent implements OnInit {
       });
     }
 
-    this.updateForm = new FormGroup({
-      name: new FormControl( null, [Validators.required]),
-      email: new FormControl(null, [
-        Validators.required,
-        Validators.email,
-      ]),
-      phone: new FormControl(null, [Validators.required]),
-      licence: new FormControl(null, [Validators.required]),
-      car: new FormControl(null, [Validators.required])
-    });
+    this.updateForm = this.buildUpdateForm();
   }
 
   updateDriver(): void {
@@ -82,6 +74,19 @@ export class DriverPageComponent implements OnInit {
       modered: this.driver.modered,
     };
 
-    this.auth.updateDriverById(this.userId, updatedDriver);
+    this.data.updateDriverById(this.userId, updatedDriver);
+  }
+
+  private buildUpdateForm(): FormGroup {
+    return new FormGroup({
+      name: new FormControl( null, [Validators.required]),
+      email: new FormControl(null, [
+        Validators.required,
+        Validators.email,
+      ]),
+      phone: new FormControl(null, [Validators.required]),
+      licence: new FormControl(null, [Validators.required]),
+      car: new FormControl(null, [Validators.required])
+    });
   }
 }

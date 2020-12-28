@@ -1,4 +1,6 @@
 import {Driver, DriverStatus, Employee, IUser} from './user';
+import {User} from '../classes/user.class';
+import {Observable} from 'rxjs';
 
 export interface FbAuthResponse {
   localId: string;
@@ -20,4 +22,8 @@ export interface FbDriver extends Driver, IUser, Employee {
   email: string;
   password: string;
   phone?: number;
+}
+
+export interface Registration {
+  register(user: User): Observable<any>;
 }
